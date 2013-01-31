@@ -1,5 +1,8 @@
 Billing::Application.routes.draw do
 
+  resources :orders
+
+
   get "static_pages/homepage"
 
   resources :line_items

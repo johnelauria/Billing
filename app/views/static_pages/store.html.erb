@@ -1,23 +1,6 @@
-<h1>Products and Services available: </h1>
+<h1 align="center">Products and Services available: </h1>
 <div class="row">
-	<div class="span3">
-		<h4>Your recent orders:</h4>
-	<table class="table table-striped">
-		<tr>
-			<th>Name</th>
-			<th>Quantity</th>
-			<th></th>
-		</tr>
-		<% current_user.carts.last.line_items.each do |line_item| %>
-			<tr>
-				<td><%= line_item.product.name %></td>
-				<td><%= line_item.quantity %></td>
-				<td><%= link_to "Remove", line_item, method: :delete, data: { confirm: "Remove #{line_item.product.name} from your order list?" }, class: "btn btn-mini btn-danger" %>
-			</tr>
-		<% end %>
-	</table>
-	</div>
-	<div class="span8 offset1">
+	<div class="span8">
 <table class="table">
 	<tr>
 		<th>Name</th>
@@ -45,4 +28,43 @@
 	<% end %>
 </table>
 </div>
+<div class="span3 offset1">
+		<h4><%= link_to "Your recent orders: ", current_user.carts %></h4>
+	<table id="cart" class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Quantity</th>
+			<th></th>
+		</tr>
+		<% current_user.carts.last.line_items.each do |line_item| %>
+			<tr>
+				<td><%= line_item.product.name %></td>
+				<td><%= line_item.quantity %></td>
+				<td><%= link_to "Remove", line_item, method: :delete, data: { confirm: "Remove #{line_item.product.name} from your order list?" }, class: "btn btn-mini btn-danger" %>
+			</tr>
+		<% end %>
+		<tr>
+			<td><strong>Total: </strong></td>
+			<td><%= sprintf("P%0.02f", current_user.carts.last.line_items.to_a.sum(&:total)) %></td>
+			<% payment_service_for current_user.carts.last.id, '1891842',
+                                   :amount => current_user.carts.last.line_items.to_a.sum(&:total),
+                                   :service => :two_checkout,
+                                   :credential2 => 'tango',
+                                   :html => { :id => 'payment-form' } do |service| %>
+
+  <% current_user.carts.last.line_items.each do |line_item| %>
+    <% service.auto_settle prod: line_item.product.id.to_s + ',' + line_item.quantity.to_s,
+      price: line_item.unit_price,
+      name: line_item.product.name,
+      description: line_item.product.description %>
+  <% end %>
+
+  <% service.notification_url 'http://localhost:3000' %>
+
+  <td><input class="btn" type=submit value=" Pay via credit card"></td>
+<% end %>
+		</tr>
+	</table>
+	</div>
 </div>
+

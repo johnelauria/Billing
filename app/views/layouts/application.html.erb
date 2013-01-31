@@ -43,7 +43,7 @@
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       </div>
   	<% end %>
-  	<% if signed_in? %>Account of: <%= current_user.full_name %> | <%= current_user.account_type %><% end %>
+  	<% if signed_in? %>Account of: <%= current_user.full_name %> | <%= current_user.account_type %> | <%= current_user.credits %> credits<% end %>
     	<%= yield %>
 	</div>
 </body>
