@@ -29,7 +29,7 @@
 </table>
 </div>
 <div class="span3 offset1">
-		<h4><%= link_to "Your recent orders: ", current_user.carts %></h4>
+		<h4><%= link_to "Your Cart: ", current_user.carts.last %></h4>
 	<table id="cart" class="table table-striped">
 		<tr>
 			<th>Name</th>
@@ -58,10 +58,9 @@
       name: line_item.product.name,
       description: line_item.product.description %>
   <% end %>
-
-  <% service.notification_url 'http://localhost:3000' %>
-
+  <% unless current_user.carts.last.line_items.last.nil? %>
   <td><input class="btn" type=submit value=" Pay via credit card"></td>
+  <% end %>
 <% end %>
 		</tr>
 	</table>

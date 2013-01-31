@@ -1,5 +1,5 @@
 class Cart < ActiveRecord::Base
-  attr_accessible :account_id
+  attr_accessible :account_id, :status, :date_purchased, :time_purchased
 
   include ActiveMerchant::Billing::Integrations
 

@@ -1,6 +1,9 @@
 class CartsController < ApplicationController
   # GET /carts
   # GET /carts.json
+
+  include ActiveMerchant::Billing::Integrations
+
   def index
     @carts = Cart.all
 
@@ -79,5 +82,21 @@ class CartsController < ApplicationController
       format.html { redirect_to carts_url }
       format.json { head :no_content }
     end
+  end
+
+   def twocheckout_return
+    notification = TwoCheckout::Notification.new(request.query_string,
+      options = {:credential2 => "tango"})
+
+    @cart = Cart.find(params['cart_id'])
+          @cart.status = 'success'
+          @cart.time_purchased = Time.now
+          @cart.date_purchased = Date.today
+          @order = Order.create(:total => params['total'],
+          :card_holder_name => params['card_holder_name'],
+           :order_number => params['order_number'])
+          reset_session
+          redirect_to @order
+        @cart.save
   end
 end

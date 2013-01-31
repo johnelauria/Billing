@@ -11,25 +11,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131012430) do
+ActiveRecord::Schema.define(:version => 20130131124758) do
 
   create_table "accounts", :force => true do |t|
     t.string   "full_name"
     t.string   "username"
     t.string   "password_digest"
     t.string   "account_type"
-    t.integer  "contact_number"
     t.string   "email_address"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.decimal  "credits",         :default => 0.0, :null => false
     t.string   "remember_token"
+    t.string   "contact_number"
   end
 
   create_table "carts", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "account_id"
+    t.string   "status"
+    t.date     "date_purchased"
+    t.time     "time_purchased"
   end
 
   create_table "line_items", :force => true do |t|
@@ -44,8 +47,10 @@ ActiveRecord::Schema.define(:version => 20130131012430) do
   create_table "orders", :force => true do |t|
     t.integer  "account_id"
     t.decimal  "total"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "card_holder_name"
+    t.string   "order_number"
   end
 
   create_table "products", :force => true do |t|
