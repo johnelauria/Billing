@@ -1,0 +1,48 @@
+<h1>Products and Services available: </h1>
+<div class="row">
+	<div class="span3">
+		<h4>Your recent orders:</h4>
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Quantity</th>
+			<th></th>
+		</tr>
+		<% current_user.carts.last.line_items.each do |line_item| %>
+			<tr>
+				<td><%= line_item.product.name %></td>
+				<td><%= line_item.quantity %></td>
+				<td><%= link_to "Remove", line_item, method: :delete, data: { confirm: "Remove #{line_item.product.name} from your order list?" }, class: "btn btn-mini btn-danger" %>
+			</tr>
+		<% end %>
+	</table>
+	</div>
+	<div class="span8 offset1">
+<table class="table">
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>Type</th>
+		<th>Price</th>
+		<th></th>
+	</tr>
+	<% @products.each do |product| %>
+	<tr>
+		<td><%= product.name %></td>
+		<td><%= product.description %></td>
+		<td><%= product.product_type %></td>
+		<td><%= sprintf("P%0.02f", product.price) %></td>
+		<td>
+			<%= form_for(@line_item, class: "form-inline") do |f| %>
+			<%= f.hidden_field :cart_id, value: current_user.carts.last.id %>
+			<%= f.hidden_field :product_id, value: product.id %>
+			<%= f.hidden_field :unit_price, value: product.price %>
+			<%= f.text_field :quantity, placeholder: "Quantity", class: "input-mini" %>
+			<%= f.submit "Place Order", class: "btn btn-mini btn-primary" %>
+			<% end %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+</div>
+</div>

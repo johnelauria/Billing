@@ -1,0 +1,34 @@
+<h1>Listing accounts</h1>
+
+<table class="table">
+  <tr>
+    <th>Full name</th>
+    <th>Username</th>
+    <th>Account type</th>
+    <th>Credits</th>
+    <th>Contact number</th>
+    <th>Email address</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @accounts.each do |account| %>
+  <tr>
+    <td><%= account.full_name %></td>
+    <td><%= account.username %></td>
+    <td><%= account.account_type %></td>
+    <td><%= sprintf("P%0.02f", account.credits) %></td>
+    <td><%= account.contact_number %></td>
+    <td><%= account.email_address %></td>
+    <td><div class="btn-group">
+    <%= link_to 'Show', account, class: "btn btn-mini btn-primary" %>
+    <%= link_to 'Edit', edit_account_path(account), class: "btn btn-mini" %>
+    <%= link_to 'Delete', account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td></div>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Account', new_account_path, class: "btn" %>

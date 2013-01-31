@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Billing</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<a class="brand" href="#">Billing</a>
+		<ul class="nav">
+			<li><%= link_to "Home", root_path %></li>
+			<% if signed_in? %>
+			<li><%= link_to "The Store", static_pages_store_path %></li>
+			<% if signed_in? && admin? %>
+			<li><%= link_to "Products & Services", products_path %></li>
+			<li><%= link_to "Accounts", accounts_path %></li>
+			<% end %>
+			<% end %>
+		</ul>
+		<% if signed_in? %>
+		<ul class="nav pull-right">
+				<li><%= link_to "Sign out", signout_path %></li>
+			</ul>
+		<% else %>
+		<div class="navbar-form pull-right">
+			<%= form_for(:session, url: sessions_path) do |f| %>
+			<%= f.text_field :username, placeholder: "Username", class: "input-medium search-query" %>
+			<%= f.password_field :password, placeholder: "Password", class: "input-medium search-query" %>
+			<%= f.submit "Sign in", class: "btn btn-mini" %>
+			<% end %>
+		<% end %>
+		</div>
+	</div>
+</div>
+	<br /><br />
+	<div class="container">
+	<% flash.each do |key, value| %>
+      <div>
+      	<a class="close" href="#" data-dismiss="alert">X</a>
+        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+      </div>
+  	<% end %>
+  	<% if signed_in? %>Account of: <%= current_user.full_name %> | <%= current_user.account_type %><% end %>
+    	<%= yield %>
+	</div>
+</body>
+</html>

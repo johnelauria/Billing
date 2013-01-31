@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<%= @cart.account.full_name %>
+
+<table class="table">
+	<tr>
+		<th>Product Name</th>
+		<th>Price</th>
+		<th>Quantity</th>
+<% @cart.line_items.each do |line_item| %>
+	<tr>
+		<td><%= line_item.product.name %></td>
+		<td><%= line_item.product.price %></td>
+		<td><%= line_item.quantity %></td>
+	</tr>
+<% end %>
+</table>
