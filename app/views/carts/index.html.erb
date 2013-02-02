@@ -1,11 +1,12 @@
-<h1>Listing carts</h1>
+<h1>Orders</h1>
 
 <table class="table">
   <tr>
-    <th>name</th>
-    <th>status</th>
-    <th></th>
-    <th></th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Payment Method</th>
+    <th>Date purchased</th>
+    <th>Time purchased</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,14 +15,11 @@
   <tr>
     <td><%= cart.account.full_name %></td>
     <td><%= cart.status %></td>
-    <td><%= cart.time_purchased %></td>
-    <td><%= link_to 'Show', cart %></td>
-    <td><%= link_to 'Edit', edit_cart_path(cart) %></td>
-    <td><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= cart.payment_method %></td>
+    <td><%= cart.date_purchased %></td>
+    <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
+    <td><%= link_to 'Show', cart, class: "btn btn-mini btn-primary" %></td>
+    <td><%= link_to 'Delete', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Cart', new_cart_path %>

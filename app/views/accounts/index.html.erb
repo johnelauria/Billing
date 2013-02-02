@@ -23,7 +23,7 @@
     <td><%= account.email_address %></td>
     <td><div class="btn-group">
     <%= link_to 'Show', account, class: "btn btn-mini btn-primary" %>
-    <%= link_to 'Edit', edit_account_path(account), class: "btn btn-mini" %>
+    <%= link_to 'Update', edit_account_path(account), class: "btn btn-mini" %>
     <%= link_to 'Delete', account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td></div>
   </tr>
 <% end %>

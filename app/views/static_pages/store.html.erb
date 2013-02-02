@@ -28,7 +28,7 @@
 	<% end %>
 </table>
 </div>
-<div class="span3 offset1">
+<div class="span3">
 		<h4><%= link_to "Your Cart: ", current_user.carts.last %></h4>
 	<table id="cart" class="table table-striped">
 		<tr>
@@ -46,6 +46,9 @@
 		<tr>
 			<td><strong>Total: </strong></td>
 			<td><%= sprintf("P%0.02f", current_user.carts.last.line_items.to_a.sum(&:total)) %></td>
+			<td></td>
+		</tr>
+		<tr>
 			<% payment_service_for current_user.carts.last.id, '1891842',
                                    :amount => current_user.carts.last.line_items.to_a.sum(&:total),
                                    :service => :two_checkout,
@@ -62,6 +65,7 @@
   <td><input class="btn" type=submit value=" Pay via credit card"></td>
   <% end %>
 <% end %>
+	<td colspan="2"><%= link_to "Pay using my credits", static_pages_credit_payment_path, data: { confirm: "You are about to purchase your orders using your own credits. Please review them carefully before proceeding."}, class: "btn" unless current_user.carts.last.line_items.to_a.sum(&:total) == 0 %></td>
 		</tr>
 	</table>
 	</div>

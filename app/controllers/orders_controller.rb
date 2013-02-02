@@ -15,6 +15,12 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
 
+    if @order.account_id.nil?
+      @order.account_id = current_user.id
+      current_user.carts.last.update_attributes(order_id: @order_id)
+      @order.save
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }

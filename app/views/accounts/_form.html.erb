@@ -27,14 +27,16 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
     </div>
+  <% if admin? %>
   <div class="field">
     <%= f.label :account_type %><br />
-    <%= f.select :account_type, "<option>Admin</option><option>Customer</option>".html_safe %>
+    <%= f.select :account_type, "<option>Admin</option><option>Customer</option>".html_safe, value: "Customer" %>
   </div>
   <div class="field">
     <%= f.label :credits %><br />
     <%= f.text_field :credits %>
   </div>
+  <% end %>
   <div class="field">
     <%= f.label :contact_number %><br />
     <%= f.text_field :contact_number %>

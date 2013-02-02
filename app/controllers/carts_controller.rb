@@ -92,6 +92,7 @@ class CartsController < ApplicationController
           @cart.status = 'success'
           @cart.time_purchased = Time.now
           @cart.date_purchased = Date.today
+          @cart.payment_method = "Online Credit Card"
           @order = Order.create(:total => params['total'],
           :card_holder_name => params['card_holder_name'],
            :order_number => params['order_number'])

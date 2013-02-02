@@ -16,6 +16,7 @@
 			<li><%= link_to "The Store", static_pages_store_path %></li>
 			<% if signed_in? && admin? %>
 			<li><%= link_to "Products & Services", products_path %></li>
+			<li><%= link_to "Sales Orders", carts_path %></li>
 			<li><%= link_to "Accounts", accounts_path %></li>
 			<% end %>
 			<% end %>
@@ -43,7 +44,7 @@
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       </div>
   	<% end %>
-  	<% if signed_in? %>Account of: <%= current_user.full_name %> | <%= current_user.account_type %> | <%= current_user.credits %> credits<% end %>
+  	<% if signed_in? %>Account of: <%= link_to current_user.full_name, current_user %> | <%= current_user.account_type %> | <%= current_user.credits %> credits<% end %>
     	<%= yield %>
 	</div>
 </body>

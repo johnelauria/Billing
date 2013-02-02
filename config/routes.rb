@@ -2,6 +2,8 @@ Billing::Application.routes.draw do
 
   resources :orders
 
+  get "static_pages/credit_payment"
+
 
   get "static_pages/homepage"
 

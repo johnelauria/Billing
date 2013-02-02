@@ -17,7 +17,7 @@
 
 <p>
   <b>Credits:</b>
-  <%= @account.credits %>
+  <%= sprintf("P%0.02f", @account.credits) %>
 </p>
 
 <p>
@@ -31,5 +31,29 @@
 </p>
 
 
-<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Update', edit_account_path(@account) %> |
 <%= link_to 'Back', accounts_path %>
+<br /><br />
+<% unless @account.carts.last.nil? %>
+<legend>Here are your recent orders:</legend>
+<table class="table table-striped">
+  <tr>
+    <th>Cart id number</th>
+    <th>Date purchased</th>
+    <th>Time purchased</th>
+    <th>Status</th>
+    <th>Payment Method</th>
+    <th></th>
+  </tr>
+  <% @account.carts.each do |cart| %>
+  <tr>
+    <td><%= cart.id %></td>
+    <td><%= cart.date_purchased %></td>
+    <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
+    <td><%= cart.status %></td>
+    <td><%= cart.payment_method %></td>
+    <td><%= link_to "Show", cart, class: "btn btn-mini btn-primary" %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>

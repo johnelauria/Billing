@@ -2,6 +2,8 @@
 
 <table>
   <tr>
+    <th>Order number</th>
+    <th>Customer Name</th>
     <th>Account</th>
     <th>Total</th>
     <th></th>
@@ -11,6 +13,8 @@
 
 <% @orders.each do |order| %>
   <tr>
+    <td><%= order.order_number %></td>
+    <td><%= order.card_holder_name %></td>
     <td><%= order.account_id %></td>
     <td><%= order.total %></td>
     <td><%= link_to 'Show', order %></td>
