@@ -1,11 +1,13 @@
 class StaticPagesController < ApplicationController
+
+  before_filter :sign_in_first, only: [ :store ]
   def store
   	@products = Product.all
   	@line_item = LineItem.new(params[:line_item])
     @account = Account.find(current_user.id)
   	
   	if current_user.carts.last.nil?
-  		Cart.create(account_id: current_user.id)
+  		Cart.create(account_id: current_user.id, status: "unpaid")
   	else
   		if current_user.carts.last.status == "success"
   			Cart.create(account_id: current_user.id, status: "unpaid")

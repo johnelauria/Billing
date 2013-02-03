@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
+
+  before_filter :sign_in_first
+  
   def index
     @orders = Order.all
 

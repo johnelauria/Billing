@@ -1,25 +1,86 @@
-<h1>Orders</h1>
+<h1>Order carts</h1>
 
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Payment Method</th>
-    <th>Date purchased</th>
-    <th>Time purchased</th>
-    <th></th>
-    <th></th>
-  </tr>
+<ul class="nav nav-pills">
+  <li class="active"><a href="#allCarts" data-toggle="tab">All carts</a></li>
+  <li><a href="#paid" data-toggle="tab">Paid Carts</a></li>
+  <li><a href="#unpaid" data-toggle="tab">Unpaid carts</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="allCarts">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Payment Method</th>
+        <th>Date purchased</th>
+        <th>Time purchased</th>
+        <th></th>
+        <th></th>
+      </tr>
 
-<% @carts.each do |cart| %>
-  <tr>
-    <td><%= cart.account.full_name %></td>
-    <td><%= cart.status %></td>
-    <td><%= cart.payment_method %></td>
-    <td><%= cart.date_purchased %></td>
-    <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
-    <td><%= link_to 'Show', cart, class: "btn btn-mini btn-primary" %></td>
-    <td><%= link_to 'Delete', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
-  </tr>
-<% end %>
-</table>
+    <% @carts.each do |cart| %>
+      <tr>
+        <td><%= cart.account.full_name %></td>
+        <td><%= cart.status %></td>
+        <td><%= cart.payment_method %></td>
+        <td><%= cart.date_purchased %></td>
+        <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
+        <td><%= link_to 'Show', cart, class: "btn btn-mini btn-primary" %></td>
+        <td><%= link_to 'Delete', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="paid">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Payment Method</th>
+        <th>Date purchased</th>
+        <th>Time purchased</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% Cart.find_all_by_status("success").each do |cart| %>
+      <tr>
+        <td><%= cart.account.full_name %></td>
+        <td><%= cart.status %></td>
+        <td><%= cart.payment_method %></td>
+        <td><%= cart.date_purchased %></td>
+        <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
+        <td><%= link_to 'Show', cart, class: "btn btn-mini btn-primary" %></td>
+        <td><%= link_to 'Delete', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="unpaid">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Payment Method</th>
+        <th>Date purchased</th>
+        <th>Time purchased</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+    <% Cart.find_all_by_status("unpaid").each do |cart| %>
+      <tr>
+        <td><%= cart.account.full_name %></td>
+        <td><%= cart.status %></td>
+        <td><%= cart.payment_method %></td>
+        <td><%= cart.date_purchased %></td>
+        <td><%= cart.time_purchased.strftime("%H:%M") unless cart.time_purchased.nil? %></td>
+        <td><%= link_to 'Show', cart, class: "btn btn-mini btn-primary" %></td>
+        <td><%= link_to 'Delete', cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>

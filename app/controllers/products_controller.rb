@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
+
+  before_filter :sign_in_first
+  before_filter :prevent_customer
+  
   def index
     @products = Product.all
 

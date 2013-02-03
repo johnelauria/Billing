@@ -1,8 +1,8 @@
 @import "bootstrap";
 
 body {
-  background-image:url("background.jpg");
-  color: #333;
+  background-image:url("background-1.jpg");
+  color: #88f;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -63,5 +63,20 @@ div {
   ul li {
     font-size: 12px;
     list-style: square;
+  }
+}
+
+.hero-unit {
+  background-image:url("banner.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  a {
+    color: #222;
+  }
+
+  a:hover {
+    color: #88f;
+    text-decoration: none;
   }
 }

@@ -1,6 +1,10 @@
 class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
+
+  before_filter :sign_in_first
+  before_filter :prevent_everyone, only: [ :index, :new, :edit ]
+  
   def index
     @line_items = LineItem.all
 

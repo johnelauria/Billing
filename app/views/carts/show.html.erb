@@ -7,11 +7,13 @@
 		<th>Product Name</th>
 		<th>Price</th>
 		<th>Quantity</th>
+		<th>Total</th>
 <% @cart.line_items.each do |line_item| %>
 	<tr>
 		<td><%= line_item.product.name %></td>
-		<td><%= line_item.product.price %></td>
+		<td><%= sprintf("P%0.02f", line_item.product.price) %></td>
 		<td><%= line_item.quantity %></td>
+		<td><%= sprintf("P%0.02f", line_item.total) %></td>
 	</tr>
 <% end %>
 </table>

@@ -1,6 +1,10 @@
 class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
+
+  before_filter :sign_in_first
+  before_filter :prevent_customer, only: [ :index, :create, :new, :destroy]
+  
   def index
     @accounts = Account.all
 
@@ -60,7 +64,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -4,6 +4,9 @@ class CartsController < ApplicationController
 
   include ActiveMerchant::Billing::Integrations
 
+  before_filter :sign_in_first
+  before_filter :prevent_customer, only: [ :index, :new, :edit ]
+
   def index
     @carts = Cart.all
 
