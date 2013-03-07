@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
     @order = Order.find(params[:id])
+    flash[:success] = "Transaction Successful! Thank you for purchasing our services! Please keep a copy of your receipt which was sent to your email for future references"
 
     if @order.account_id.nil?
       @order.account_id = current_user.id

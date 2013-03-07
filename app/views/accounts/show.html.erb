@@ -35,8 +35,8 @@
 <%= link_to 'Back', accounts_path %>
 <br /><br />
 <% unless @account.carts.last.nil? %>
-<legend>Here are your recent orders:</legend>
-<table class="table table-striped">
+<legend><font color="#eaeaea">Here are your recent orders:</font></legend>
+<table class="table">
   <tr>
     <th>Cart id number</th>
     <th>Date purchased</th>
@@ -45,7 +45,7 @@
     <th>Payment Method</th>
     <th></th>
   </tr>
-  <% @account.carts.each do |cart| %>
+  <% @account.carts.reverse.each do |cart| %>
   <tr>
     <td><%= cart.id %></td>
     <td><%= cart.date_purchased %></td>

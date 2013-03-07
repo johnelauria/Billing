@@ -12,10 +12,8 @@
 
 <p>
   <b>Total:</b>
-  <%= @order.total %>
+  <%= sprintf("P%0.02f", @order.total) %>
 </p>
 
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to 'Back to my account', current_user %>
 
